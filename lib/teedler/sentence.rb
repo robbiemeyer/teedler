@@ -6,7 +6,11 @@ class Sentence < String
   end
 
   def count_words
-    split(' ').group_by { |word| word }.transform_values(&:count)
+    no_punctuation.split(' ').group_by { |word| word }.transform_values(&:count)
+  end
+
+  def no_punctuation
+    self[/.*[^.!?]/] || ''
   end
 
 end
