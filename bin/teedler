@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require './lib/teedler'
+puts Teedler.summarize(ARGV.first)
