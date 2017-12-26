@@ -2,7 +2,7 @@ class Teedler
   class << self
 
     def summarize(text)
-      :hello
+      text
     end
 
   end
