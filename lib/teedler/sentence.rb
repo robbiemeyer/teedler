@@ -2,7 +2,7 @@ class Sentence < String
 
   def self.new_group (input)
     paragraph = self.new input
-    paragraph.split /(?<=[?.!])(?=\D)\s*/
+    paragraph.split /(?<=[?.!])(?=\W)\s*/
   end
 
   def count_words
