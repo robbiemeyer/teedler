@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require './lib/teedler' 
+require 'teedler' 
 
 if ARGV.first.nil?
   puts 'Usage: teedler [FILENAME]'

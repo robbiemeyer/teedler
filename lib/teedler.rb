@@ -1,5 +1,5 @@
-require './lib/teedler/sentence.rb'
-require './lib/teedler/normal_function.rb'
+require 'teedler/sentence.rb'
+require 'teedler/normal_function.rb'
 
 class Teedler
   class << self
