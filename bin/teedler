@@ -2,4 +2,10 @@
 
 require './lib/teedler' 
 
-puts Teedler.summarize(File.read(ARGV.first))
+if ARGV.first.nil?
+  puts 'Usage: teedler [FILENAME]'
+elsif File.exist? ARGV.first
+  puts Teedler.summarize(File.read(ARGV.first))
+else
+  puts "Could not find file #{ARGV.first}"
+end
