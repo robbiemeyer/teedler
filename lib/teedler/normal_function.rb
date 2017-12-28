@@ -6,9 +6,16 @@ class NormalFunction
     @sigma2s = sigma2s
   end
 
+  def probability(values)
+    @means.keys.reduce(1) do |p, k|
+      p * normal_eqn(@means[k], sqrt(@sigma2s[k]), values[k] || 0)
+    end
+  end
+
   private
 
   def normal_eqn(mean, sigma, x)
+    sigma = 0.0001 if sigma == 0
     (1 / (sigma * sqrt(2 * PI))) * exp(-0.5 * ((x - mean)/sigma)** 2)
   end
 end

@@ -5,13 +5,13 @@ require './lib/teedler'
 # from https://en.wikipedia.org/wiki/Turtles
 test_text = <<-END 
   The largest living chelonian is the leatherback sea turtle (Dermochelys
-  coriacea), which reaches a shell length of 200 cm (6.6 ft) and can reach a
+  coriacea), which reaches a shell length of 200 cm (66 ft) and can reach a
   weight of over 900 kg (2,000 lb). Freshwater turtles are generally smaller, but
   with the largest species, the Asian softshell turtle Pelochelys cantorii, a few
-  individuals have been reported up to 200 cm (6.6 ft). This dwarfs even the
+  individuals have been reported up to 200 cm (66 ft). This dwarfs even the
   better-known alligator snapping turtle, the largest chelonian in North America,
-  which attains a shell length of up to 80 cm (2.6 ft) and weighs as much as
-  113.4 kg (250 lb).[17] Giant tortoises of the genera Geochelone, Meiolania, and
+  which attains a shell length of up to 80 cm (26 ft) and weighs as much as
+  1134 kg (250 lb).[17] Giant tortoises of the genera Geochelone, Meiolania, and
   others were relatively widely distributed around the world into prehistoric
   times, and are known to have existed in North and South America, Australia, and
   Africa. They became extinct at the same time as the appearance of man, and it

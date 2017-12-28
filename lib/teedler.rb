@@ -1,4 +1,5 @@
 require './lib/teedler/sentence.rb'
+require './lib/teedler/normal_function.rb'
 
 class Teedler
   class << self
@@ -18,6 +19,12 @@ class Teedler
         end
         h
       end.transform_values { |x| x/n }
+
+      distribution = NormalFunction.new(means, sigma2s)
+
+      sentences.max_by.with_index do |sentence, i|
+        distribution.probability word_counts[i]
+      end.gsub(/\s?\n\s?/, '')
     end
 
   end
