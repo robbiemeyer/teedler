@@ -8,34 +8,35 @@ class Teedler
     @sentences = Sentence.new_group text
     @n = @sentences.length
     @word_counts = @sentences.map { |s| s.count_words }
-    @base_hash = @word_counts.map { |s| s.keys }.flatten.each_with_object(0).to_h
   end
 
   def summarize
-    binding.pry
-    #distribution = NormalFunction.new(means, sigma2s)
+    distribution = NormalFunction.new(vectorize(means), sigma)
 
-    #sentences.max_by.with_index do |sentence, i|
-    #  distribution.probability word_counts[i]
-    #end.gsub(/\s?\n\s?/, '')
+    @sentences.max_by(3).with_index do |sentence, i|
+      distribution.probability vectorize(@word_counts[i])
+    end.join(' ').gsub(/\s?\n\s?/, '')
   end
 
   private
 
   def means
-    mean_arr = @word_counts.reduce({}) do |h, count|
+    @means ||= @word_counts.reduce({}) do |h, count|
       h.merge(count) { |k, a, b| a + b }
-    end.values.map { |x| x.to_f/@n }
-    Vector.elements mean_arr
+    end.transform_values { |x| x.to_r/@n }
+  end
+
+  def features
+    @features ||= means.max_by(@n/2 +1) { |k,v| v }.to_h.keys
   end
   
-  def vectorize_counts(count)
-    Vector.elements @base_hash.merge(count).values
+  def vectorize(hash)
+    Vector.elements hash.fetch_values(*features) {0}
   end
 
   def sigma
-    @word_counts.reduce(Matrix.zero(@base_hash.length)) do |m, count|
-      v = vectorize_counts(count) - means
+    @word_counts.reduce(Matrix.zero(features.length)) do |m, count|
+      v = vectorize(count) - vectorize(means)
       m + v * v.covector
     end / @n
   end

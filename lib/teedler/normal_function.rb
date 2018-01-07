@@ -1,15 +1,15 @@
 include Math
 
 class NormalFunction
-  def initialize (means, sigma2s)
+  def initialize (means, sigma)
     @means = means
-    @sigma2s = sigma2s
+    @sigma = sigma
+    @n = means.size
   end
 
   def probability(values)
-    @means.keys.reduce(1) do |p, k|
-      p * normal_eqn(@means[k], sqrt(@sigma2s[k]), values[k] || 0)
-    end
+    (1/ ((2*PI)**(@n/2) * @sigma.det**0.5)) * 
+      exp((-0.5 * (values - @means).covector * @sigma.inverse * (values - @means))[0])
   end
 
   private
