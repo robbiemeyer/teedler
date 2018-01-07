@@ -9,15 +9,9 @@ class Teedler
     @n = @sentences.length
     @word_counts = @sentences.map { |s| s.count_words }
     @words = @word_counts.map { |s| s.keys }.flatten.uniq
-    binding.pry
   end
 
   def summarize
-    means = word_counts.reduce({}) do |h, count|
-      h.merge(count) { |k, a, b| a + b }
-    end.transform_values { |x| x.to_f/n }
-    binding.pry
-
     sigma2s = word_counts.reduce({}) do |h, count|
       count.each do |k, v|
         h[k] = (h[k] || 0) + (v - means[k])**2
@@ -34,11 +28,11 @@ class Teedler
 
   private
 
-  def mean
-    word_counts.reduce({}) do |h, count|
+  def means
+    meanarr = @word_counts.reduce({}) do |h, count|
       h.merge(count) { |k, a, b| a + b }
-    end.transform_values { |x| x.to_f/n }
-    binding.pry
+    end.values.map { |x| x.to_f/@n }
+    Vector.elements meanarr
   end
 
 end
