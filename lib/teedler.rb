@@ -12,15 +12,15 @@ class Teedler
   end
 
   def summarize
-    distribution = NormalFunction.new(means, sigma2s)
+    binding.pry
+    #distribution = NormalFunction.new(means, sigma2s)
 
-    sentences.max_by.with_index do |sentence, i|
-      distribution.probability word_counts[i]
-    end.gsub(/\s?\n\s?/, '')
+    #sentences.max_by.with_index do |sentence, i|
+    #  distribution.probability word_counts[i]
+    #end.gsub(/\s?\n\s?/, '')
   end
 
   private
-
 
   def means
     mean_arr = @word_counts.reduce({}) do |h, count|
@@ -31,6 +31,13 @@ class Teedler
   
   def vectorize_counts(count)
     Vector.elements @base_hash.merge(count).values
+  end
+
+  def sigma
+    @word_counts.reduce(Matrix.zero(@base_hash.length)) do |m, count|
+      v = vectorize_counts(count) - means
+      m + v * v.covector
+    end / @n
   end
 
 end
