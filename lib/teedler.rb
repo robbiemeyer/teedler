@@ -12,8 +12,12 @@ class Teedler
   def summarize
     distribution = NormalFunction.new(vectorize(means), sigma)
 
-    @sentences.max_by(3).with_index do |sentence, i|
-      distribution.probability vectorize(@word_counts[i])
+    probs = @sentences.map.with_index do |s, i| 
+      distribution.probability(vectorize(@word_counts[i]))
+    end
+
+    @sentences.select.with_index do |sentence, i|
+      probs.max - probs[i] <= 0.001
     end.join(' ').gsub(/\s?\n\s?/, '')
   end
 
@@ -25,8 +29,16 @@ class Teedler
     end.transform_values { |x| x.to_r/@n }
   end
 
+  def num_features
+    if @n/2 + 1 > 15
+      15
+    else
+      @n/2 + 1
+    end
+  end
+
   def features
-    @features ||= means.max_by(@n/2 +1) { |k,v| v }.to_h.keys
+    @features ||= means.max_by(num_features) { |k,v| v }.to_h.keys
   end
   
   def vectorize(hash)
