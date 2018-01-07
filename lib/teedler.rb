@@ -1,7 +1,6 @@
 require 'teedler/sentence.rb'
 require 'teedler/normal_function.rb'
 require 'matrix'
-require 'pry'
 
 class Teedler
   def initialize(text)
