@@ -8,17 +8,10 @@ class Teedler
     @sentences = Sentence.new_group text
     @n = @sentences.length
     @word_counts = @sentences.map { |s| s.count_words }
-    @words = @word_counts.map { |s| s.keys }.flatten.uniq
+    @base_hash = @word_counts.map { |s| s.keys }.flatten.each_with_object(0).to_h
   end
 
   def summarize
-    sigma2s = word_counts.reduce({}) do |h, count|
-      count.each do |k, v|
-        h[k] = (h[k] || 0) + (v - means[k])**2
-      end
-      h
-    end.transform_values { |x| x/n }
-
     distribution = NormalFunction.new(means, sigma2s)
 
     sentences.max_by.with_index do |sentence, i|
@@ -28,11 +21,16 @@ class Teedler
 
   private
 
+
   def means
-    meanarr = @word_counts.reduce({}) do |h, count|
+    mean_arr = @word_counts.reduce({}) do |h, count|
       h.merge(count) { |k, a, b| a + b }
     end.values.map { |x| x.to_f/@n }
-    Vector.elements meanarr
+    Vector.elements mean_arr
+  end
+  
+  def vectorize_counts(count)
+    Vector.elements @base_hash.merge(count).values
   end
 
 end
