@@ -5,7 +5,7 @@ require 'teedler'
 if ARGV.first.nil?
   puts 'Usage: teedler [FILENAME]'
 elsif File.exist? ARGV.first
-  puts Teedler.summarize(File.read(ARGV.first))
+  puts Teedler.new(File.read(ARGV.first)).summarize
 else
   puts "Could not find file #{ARGV.first}"
 end
