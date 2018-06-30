@@ -9,11 +9,6 @@ can be quite good.
 Teedler has been tested with ruby 2.4. Earlier versions of Ruby have not been
 tested and may not work.
 
-## Why Ruby?
-It was what I felt most comfortable with when I decided to first write Teedler. 
-As Teedler was never intended to be 'used', I simply chose a language which would
-allow me to express my ideas as easily as possible.
-
 ## How to install
 To install, you must build and install the gem.
 
